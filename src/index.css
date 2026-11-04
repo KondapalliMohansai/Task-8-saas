@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-page font-sans text-ink antialiased;
+  }
+  button {
+    @apply cursor-pointer;
+  }
+}
+
+/* thin scrollbars for the horizontally scrolling tables / boards */
+.thin-scroll::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+.thin-scroll::-webkit-scrollbar-thumb {
+  background: #d9d8e6;
+  border-radius: 999px;
+}
+
+@media print {
+  aside, .no-print {
+    display: none !important;
+  }
+  main {
+    margin: 0 !important;
+  }
+}
+
+/* Reports chart: tooltip, active dot and guide line glide between points */
+.chart-glide {
+  transition: transform 450ms cubic-bezier(0.22, 1, 0.36, 1), height 450ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+.chart-dot {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 250ms cubic-bezier(0.22, 1, 0.36, 1), fill 250ms ease, stroke 250ms ease;
+}
+.chart-dot:hover,
+.chart-dot.is-active {
+  transform: scale(1.35);
+}
+.chart-fade {
+  transition: opacity 300ms ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .chart-glide,
+  .chart-dot,
+  .chart-fade {
+    transition: none;
+  }
+}
